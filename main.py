@@ -1,16 +1,25 @@
-# This is a sample Python script.
+import pygame
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+WHITE = (255, 255, 255)
+
+# initialize the game
+pygame.init()
+
+# create the screen
+screen = pygame.display.set_mode((800, 600))
+
+# title & icon
+pygame.display.set_caption("Evader")
+icon = pygame.image.load("space-ship.png")
+pygame.display.set_icon(icon)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# game loop
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    screen.fill((WHITE)) # this will not work, an update display is needed
+    pygame.display.update()
