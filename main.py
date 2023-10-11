@@ -1,7 +1,7 @@
 import math
-
 import pygame
 import random
+
 
 WHITE = (255, 255, 255)
 number_of_obstacles = 4
@@ -22,8 +22,8 @@ pygame.display.set_icon(icon)
 
 # obstacle
 obstacle = pygame.image.load("barrier.png")  # 124px
-obstacleX = random.randint(0, 676)
-obstacleY = random.randint(0, 476)
+obstacleX = random.randint(0, 700)
+obstacleY = random.randint(0, 550)
 
 print('obstacleX: ', obstacleX, 'obstacleY: ', obstacleY)
 
@@ -53,7 +53,9 @@ def obs_draw(x, y):
 def is_collision(obstacleX, obstacleY, agentX, agentY):
     distance = math.sqrt((math.pow(agentX - obstacleX, 2))
                          + (math.pow(agentY - obstacleY, 2)))
-    if distance < 27:
+
+    if distance < 45:
+        print(distance)
         return True
     else:
         return False
@@ -68,16 +70,16 @@ while running:
 
     # agentY -= 0.1
     agentY += agentY_change
+    agentX += agentX_change
 
-    collision = is_collision(obstacleX, obstacleY, agentX, agentY)
-    if collision:
-        print('before: ', agentX, agentY)
-        agentY -= agentY_change
-        agentX += agentX_change
-        print('after: ', agentX, agentY)
+    # collision = is_collision(obstacleX, obstacleY, agentX, agentY)
+    # if collision:
+    #     print('before: ', agentX, agentY)
+    #     agentY -= agentY_change*2
+    #     # agentX += agentX_change
+    #     print('after: ', agentX, agentY)
 
     # agentX -= 0.1
-    agentX += agentX_change
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -106,6 +108,36 @@ while running:
     # collision = is_collision(obstacleX, obstacleY, agentX, agentY)
     # if collision:
     #     agentY += 0.5
+
+    # # this works when the collision hits the top, but not bottom
+    # collision = is_collision(obstacleX, obstacleY, agentX, agentY)
+    # if collision:
+    #     print('before: ', agentX, agentY)
+    #     agentY_change = -4
+    #     # agentY -= agentY_change*2
+    #     # agentX += agentX_change
+    #     print('after: ', agentX, agentY)
+    #     print()
+
+    collision = is_collision(obstacleX, obstacleY, agentX, agentY)
+    if collision:
+        print('before: agent', agentX, agentY)
+        print('before: agent_change', agentX_change, agentY_change)
+        # agentY_change = -4
+        # agentX_change = -4
+
+        # this conditional statement checks it the agent is hitting the obstacle
+        # from below, if it does, it sends it backwards, otherwise, upwards.
+
+        if (agentX_change != -4) and (agentY_change != -4):
+            agentX_change = -4
+            agentY_change = -4
+        else:
+            agentX_change = 4
+            agentY_change = 4
+        print('after: ', agentX, agentY)
+        print('after: agent_change', agentX_change, agentY_change)
+        print()
 
     # for i in range(1, number_of_obstacles):
     #     obs_draw(obstacleX, obstacleY)
