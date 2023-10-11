@@ -130,11 +130,11 @@ while running:
         # from below, if it does, it sends it backwards, otherwise, upwards.
 
         if (agentX_change != -4) and (agentY_change != -4):
-            agentX_change = -4
-            agentY_change = -4
+            agentX_change = -random.randint(1, 10)
+            agentY_change = -random.randint(1, 10)
         else:
-            agentX_change = 4
-            agentY_change = 4
+            agentX_change = random.randint(1, 10)
+            agentY_change = random.randint(1, 10)
         print('after: ', agentX, agentY)
         print('after: agent_change', agentX_change, agentY_change)
         print()
