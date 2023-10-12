@@ -4,6 +4,7 @@ import random
 
 # WHITE = (255, 255, 255)
 number_of_obstacles = 4
+
 # initialize the game
 pygame.init()
 
@@ -15,7 +16,7 @@ screen = pygame.display.set_mode((800, 600))
 background = pygame.image.load("background.png")
 
 # title & icon
-pygame.display.set_caption("Evader")
+pygame.display.set_caption("Space Evader")
 icon = pygame.image.load("space-ship.png")
 pygame.display.set_icon(icon)
 
@@ -26,8 +27,8 @@ obstacleY = []
 
 for i in range(number_of_obstacles):
     obstacle.append(pygame.image.load("barrier.png"))  # 124px
-    obstacleX.append(random.randint(0, 700))
-    obstacleY.append(random.randint(0, 550))
+    obstacleX.append(random.randint(50, 700))
+    obstacleY.append(random.randint(50, 550))
 
 # print('obstacleX: ', obstacleX, 'obstacleY: ', obstacleY)
 
@@ -144,6 +145,7 @@ while running:
             agentY_change = -4
 
         collision = is_collision(obstacleX[i], obstacleY[i], agentX, agentY)
+
         if collision:
             print('before: agent', agentX, agentY)
             print('before: agent_change', agentX_change, agentY_change)
@@ -154,6 +156,7 @@ while running:
         # from below, if it does, it sends it backwards, otherwise, upwards.
 
             if (agentX_change != -4) and (agentY_change != -4):
+            # if (agentX_change < 0) and (agentY_change < 0):
                 agentX_change = -random.randint(1, 10)
                 agentY_change = -random.randint(1, 10)
             else:
@@ -175,5 +178,3 @@ while running:
     #     obs_draw(obstacleX, obstacleY)
     pygame.display.update()
 
-# TODO 0. insert 3 obstacles.
-# TODO 1. yet to fix the collision of 3 obstacles and evader agent
