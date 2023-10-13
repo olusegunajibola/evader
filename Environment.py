@@ -1,9 +1,11 @@
-from Agent import Agent
 import pygame
 import random
 import math
 
-from obstacles import obstacle
+# title & icon
+pygame.display.set_caption("Space Evader")
+icon = pygame.image.load("space-ship.png")
+pygame.display.set_icon(icon)
 
 # background
 background = pygame.image.load("background.png")
@@ -20,6 +22,10 @@ class Environment:
         self._height = height
 
     @staticmethod
+    def backg(backg_=background):
+        return backg_
+
+    @staticmethod
     def obst_loop(number_of_obstacles):
         obstacle_list = []
         obstacle_x = []
@@ -31,16 +37,19 @@ class Environment:
         return obstacle_list, obstacle_x, obstacle_y
 
     @staticmethod
-    def is_collision(obstaclex, obstacley, agentx, agenty):
+    def is_collision(obstaclex, obstacley, agentx, agenty, threshold=45):
         distance = math.sqrt((math.pow(agentx - obstaclex, 2))
                              + (math.pow(agenty - obstacley, 2)))
-        if distance < 45:
+        if distance < threshold:
             # print(distance)
             return True
         else:
             return False
 
-    def obs_draw(self, x, y, ind, screen):
-        screen.blit(self.obst_loop.obstacle[ind], (self.x, self.y))  # means to draw
+    @staticmethod
+    def obs_draw(obs, obs_x, obs_y, screen):
+        screen.blit(obs, (obs_x, obs_y))  # means to draw
 
-
+    # @staticmethod
+    # def obs_draw(self, x, y, ind, screen):
+    #     screen.blit(self.obst_loop.obstacle[ind], (self.x, self.y))  # means to draw
